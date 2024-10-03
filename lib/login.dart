@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/beranda.dart';
 import 'package:flutter_application_1/signup.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _tampil() {
+    String username = _usernameController.text;
+    String pass = _passwordController.text;
+
+    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage()),
+                    );
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Data Akun"),
+            content: Text("Username: $username\nPassword: $pass"),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +65,7 @@ class LoginPage extends StatelessWidget {
 
               // Input Username
               TextField(
+                controller: _usernameController,
                 decoration: const InputDecoration(
                   labelText: 'Username',
                   hintText: 'Masukkan Username Anda',
@@ -49,6 +79,7 @@ class LoginPage extends StatelessWidget {
 
               // Input Password
               TextField(
+                controller: _passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Password',
                   hintText: 'Masukkan Password Anda',
@@ -68,6 +99,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
+                        _tampil();
                         // Aksi ketika tombol login ditekan
                       },
                       style: ElevatedButton.styleFrom(
